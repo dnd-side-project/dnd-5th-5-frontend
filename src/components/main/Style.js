@@ -34,7 +34,7 @@ export const ModalContents = styled.div`
   height: 600px;
   overflow-y: auto;
   @media screen and (max-width: 767px) {
-    width: 360px;
+    min-width: 360px;
     height: 613px;
   }
 `;
