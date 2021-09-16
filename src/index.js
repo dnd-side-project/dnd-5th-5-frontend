@@ -16,14 +16,17 @@ const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(rootSaga);
 
 const ga4react = new GA4React(process.env.REACT_APP_API_SERVER);
-
+function MyApp() {
+  const ga = useGA4React();
+  return <App />;
+}
 (async () => {
   await ga4react.initialize();
 
   ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <MyApp />
       </BrowserRouter>
     </Provider>,
     document.getElementById('root'),
