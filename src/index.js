@@ -15,7 +15,7 @@ const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(rootSaga);
 
-const ga4react = new GA4React(process.env.REACT_APP_API_SERVER);
+const ga4react = new GA4React("G-7JC124T835");
 function MyApp() {
   const ga = useGA4React();
   return <App />;
