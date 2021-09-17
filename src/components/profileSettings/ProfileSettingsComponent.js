@@ -33,7 +33,7 @@ import {
 } from './style';
 import Modal from './Modal';
 import googleIcon from '@assets/img/profileSettings/google.svg';
-import kakaoIcon from '@assets/img/profileSettings/kakao.svg';
+import kakaoIcon from '@assets/img/auth/kakao.png';
 import Footer from '@components/common/Footer';
 import useResponsive from '../../hooks/useResponsive';
 
