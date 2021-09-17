@@ -1,11 +1,23 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-export const MainWrapper = styled.div`
-  max-width: 576px;
+const fadeIn = keyframes`
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 0;
+  }
+`;
+
+export const Wrapper = styled.div`
+  max-width: 57.6rem;
   width: 40vw;
-  height: 92vh;
-  background-color: #121212;
+  height: 90vh;
   overflow-y: auto;
+  background-color: #121212;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
@@ -13,42 +25,58 @@ export const MainWrapper = styled.div`
   }
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
-    width: 360px;
-    height: 92vh;
+    width: 36rem;
+    & > div {
+      padding-right: 2.4rem;
+    }
+  }
+`;
+export const MainWrapper = styled.div`
+  margin: 0 auto;
+  max-width: 500px;
+  width: 35vw;
+  padding: 0 2vw;
+  background-color: #121212;
+  overflow: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
+  @media screen and (max-width: 1023px) {
+    margin: 0 auto;
+    padding: 0 26px;
+    width: 308px;
     background-color: #121212;
   }
 `;
 
 export const ProfileImg = styled.input`
+  cursor: pointer;
   display: flex;
   margin: 0 auto;
-  margin-top: 10px;
   font-size: 0;
-  width: 120px;
-  height: 120px;
-  border-radius: 70px;
-  padding-left: 130px;
-  z-index: 10;
-  padding-top: 130px;
-
-  @media screen and (min-width: 1023px) {
-    width: 192px;
-    min-height: 192px;
-    padding-left: 192px;
-    padding-top: 192px;
-    border-radius: 96px;
-    margin-top: 45px;
+  width: 0px;
+  height: 0px;
+  padding-top: 190px;
+  padding-left: 190px;
+  margin-top: 45px;
+  overflow: hidden;
+  border-radius: 50%;
+  @media screen and (max-width: 1023px) {
+    padding-top: 120px;
+    padding-left: 120px;
   }
 `;
 export const HideBox = styled.div`
-  min-height: 14px;
+  min-height: 20px;
   background-color: #121212;
 `;
 
 export const ToggleButton = styled.div`
   cursor: pointer;
   max-width: 76.8px;
-  width: 5.3vw;
+  width: 5vw;
   max-height: 41.6px;
   height: 4vh;
   background-color: black;
@@ -58,7 +86,7 @@ export const ToggleButton = styled.div`
   &.left {
     background-color: white;
   }
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1223px) {
     width: 48px;
     height: 26px;
   }
@@ -71,7 +99,7 @@ export const ToggleInner = styled.div`
   height: min(2.6vw, 3.75vh, 38.4px);
   background: white;
   border-radius: 160px;
-  margin-left: 0%;
+  margin: 1px;
   transition: all 0.7s;
   &.left {
     background-color: black;
@@ -87,31 +115,28 @@ export const ToggleInner = styled.div`
     }
   }
 `;
-export const ContentWrapper = styled.div`
-  margin-left: 24px;
-`;
+export const ContentWrapper = styled.div``;
 export const EachTitle = styled.div`
   display: flex;
   font-size: 18px;
-  width: 320px;
+  width: 312px;
   height: 26px;
+  font-family: 'spoqaHanSansBold';
   color: #ffffff;
   margin-top: 20px;
   margin-bottom: 5px;
-  font-weight: 700;
   justify-content: space-between;
   align-items: center;
   @media screen and (min-width: 1023px) {
     height: 46px;
     margin-top: 45px;
+    width: 100%;
     max-width: 500px;
-    width: 35vw;
     font-size: 29px;
     margin-bottom: 6px;
   }
 `;
 export const EmailWrapper = styled.div`
-  margin-left: 24;
   color: rgba(255, 255, 255, 0.5);
   font-size: 16px;
   @media screen and (min-width: 1023px) {
@@ -119,40 +144,79 @@ export const EmailWrapper = styled.div`
   }
 `;
 
-export const EmailImg = styled.img`
+export const EmailImgWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background-color: ${(props) => props.bg};
   width: 20px;
   height: 20px;
   margin-right: 8px;
+
   @media screen and (min-width: 1023px) {
-    width: 3.5vh;
-    height: 3.5vh;
+    border-radius: 5px;
+    width: 32px;
+    height: 32px;
+  }
+`;
+
+export const EmailImg = styled.img`
+  background-color: ${(props) => props.bg};
+  width: 15px;
+  height: 15px;
+  @media screen and (min-width: 1023px) {
+    width: 23px;
+    height: 23px;
   }
 `;
 export const IsOpen = styled.span`
+  width: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  span {
+    display: flex;
+    p {
+      font-family: 'spoqaHanSansRegular';
+      width: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 6px;
+      font-size: 10px;
+    }
+  }
+  @media screen and (min-width: 1023px) {
+    span {
+      display: flex;
+      p {
+        font-size: 14px;
+      }
+    }
+  }
 `;
 
 export const EmailContentWrapper = styled.div`
   display: flex;
-  @media screen and (min-width: 1023px) {
-  }
+  align-items: center;
 `;
+
 export const InputBoxWrapper = styled.div`
   flex-direction: row;
 `;
 
 export const InputBox = styled.input`
   background-color: #2a2a2a;
-  width: 320px;
+  width: 258px;
+  font-family: 'spoqaHanSansRegular';
   border: 0;
   border-radius: 10px;
   color: white;
   padding: 14px 27px;
-
   @media screen and (min-width: 1023px) {
-    max-width: 500px;
-    width: 36vw;
+    width: calc(100% - 70px);
+    max-width: 458px;
     font-size: 25px;
     padding: 2vh 35px;
   }
@@ -178,21 +242,22 @@ export const AlertMessage = styled.div`
   }
 `;
 export const DeleteButton = styled.div`
+  cursor: pointer;
   margin-top: 28px;
-  margin-bottom: 70px;
+  margin-bottom: 50px;
   color: white;
   font-size: 14px;
   text-decoration: underline;
   opacity: 0.5;
   @media screen and (min-width: 1023px) {
     margin-top: 38px;
-    margin-bottom: 120px;
-
+    margin-bottom: 80px;
     font-size: 22px;
   }
 `;
 
-export const LogoutButton = styled.button`
+export const CancelButton = styled.button`
+  cursor: pointer;
   color: white;
   background-color: #121212;
   width: 148px;
@@ -201,6 +266,7 @@ export const LogoutButton = styled.button`
   align-items: center;
   justify-content: center;
   font-size: 16px;
+  font-family: 'spoqaHanSansRegular';
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
   border: solid 1px white;
@@ -213,19 +279,21 @@ export const LogoutButton = styled.button`
   }
 `;
 export const SubmitButton = styled.button`
+  cursor: default;
   color: black;
   background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 148px;
+  font-family: 'spoqaHanSansRegular';
   height: 48px;
   font-size: 16px;
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
-  border: solid 1px;
+  border: solid 1px #2a2a2a;
   @media screen and (min-width: 1023px) {
-    border: solid 1.6px;
+    border: solid 1.6px #2a2a2a;
     font-size: min(33vw, 3vh, 2.6rem);
     width: 45.7%;
     height: 7.5vh;
@@ -237,8 +305,11 @@ export const ButtonWrapper = styled.span`
   border: 0;
   display: flex;
   justify-content: space-between;
-  padding-bottom: 50px;
-  margin-right: 24px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  @media screen and (min-width: 1023px) {
+    margin-top: 50px;
+  }
 `;
 
 //// 모달 css
@@ -292,5 +363,30 @@ export const ModalContents = styled.div`
   }
   @media screen and (max-width: 1023px) and (max-height: 660px) {
     top: calc(9.4vh - 8.3vh);
+  }
+`;
+
+export const ToastWrapper = styled.div``;
+
+export const Toast = styled.div`
+  position: fixed;
+  border-radius: 5px;
+  background-color: #000000;
+  color: white;
+  max-width: 460px;
+  text-align: center;
+  width: 31.9vw;
+  max-height: 57.6px;
+  height: 5.6vh;
+  bottom: 15vh;
+  font-size: min(1.3vw, 1.8vh, 19.2px);
+  animation: ${fadeIn} 5s;
+  -moz-animation: ${fadeIn} 5s; /* Firefox */
+  -webkit-animation: ${fadeIn} 5s; /* Safari and Chrome */
+  -o-animation: ${fadeIn} 5s; /* Opera */
+  @media screen and (max-width: 1023px) {
+    width: 302px;
+    height: 36px;
+    font-size: 12px;
   }
 `;

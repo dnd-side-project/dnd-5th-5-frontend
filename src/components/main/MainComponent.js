@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ModalWrapper, ModalOverlay, ModalContents } from './Style';
 import SocialLoginContainer from '@containers/auth/SocialLoginContainer';
-import logo from '@assets/img/logo/alaLogo.svg';
+import logo from '@assets/img/ala.png';
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -12,10 +12,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   img {
-    max-width: 100px;
-    width: 6.9vw;
-    max-height: 90px;
-    height: 8.7vh;
+    width: 124px;
+    height: 112px;
     margin-top: min(19vh, 200px);
     margin-bottom: min(4.2vh, 44px);
   }
@@ -32,7 +30,7 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
-  font-weight: bold;
+  font-family: 'spoqaHanSansBold';
   color: white;
   font-size: 60px;
   margin-bottom: min(5.9vh, 61.3px);
@@ -66,7 +64,7 @@ const StyledButton = styled.button`
   background-color: white;
   outline: none;
   border: none;
-  font-weight: bold;
+  font-family: 'spoqaHanSansBold';
   text-align: center;
   border-radius: 50px;
   width: 223px;

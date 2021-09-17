@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -8,29 +9,37 @@ export const Wrapper = styled.div`
 `;
 
 export const ExitButtonWrapper = styled.div`
+  width: 770px;
   display: flex;
   flex-direction: row-reverse;
-  margin-right: 15px;
-  margin-top: 15px;
+  margin: 0 auto;
+  margin-top: 20px;
+  @media screen and (max-width: 1023px) {
+    width: 330px;
+  }
 `;
 
 export const ExitButton = styled.button`
-  width: 24px;
-  height: 24px;
+  width: 27px;
+  height: 27px;
   background: transparent;
   border: none;
   outline: none;
   cursor: pointer;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   img {
     width: 24px;
     height: 24px;
   }
 `;
+
 export const Header = styled.div`
   height: 56px;
   font-size: ${(props) => (props.nickname ? '36px' : '40px')};
-  font-weight: bold;
+  font-family: 'spoqaHanSansBold';
   letter-spacing: -0.5px;
   color: #000000;
   margin-top: 119px;
@@ -45,6 +54,7 @@ export const Header = styled.div`
 export const StyledParagraph = styled.span`
   text-align: center;
   margin-top: 52px;
+  line-height: 1.6;
   font-size: ${(props) => (props.nickname ? '16px' : '18px')};
   @media screen and (max-width: 1023px) {
     margin-top: 27px;
@@ -57,55 +67,30 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 52px;
+  & > div:nth-child(1) {
+    margin-right: 30px;
+  }
   @media screen and (max-width: 1023px) {
-    flex-direction: column;
     margin-top: 41px;
   }
 `;
 
-export const GoogleButton = styled.button`
-  cursor: pointer;
-  width: 180px;
-  height: 64px;
-  flex-grow: 0;
+export const LoginBtnWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
   align-items: center;
-  gap: 30px;
-  padding: 22px 16px;
-  border-radius: 50px;
-  box-shadow: -1px 2px 25px 10px rgba(0, 0, 0, 0.04);
-  background-color: var(--primary-color-white);
-  border: none;
-  outline: none;
-  font-size: 16px;
-  font-weight: bold;
-  margin-right: 36px;
-  @media screen and (max-width: 1023px) {
-    margin: 0 auto;
-    margin-bottom: 28px;
-  }
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  background-color: ${(props) => props.color};
+  border-radius: 50%;
+  box-shadow: -1px 2px 25px 10px rgba(0, 0, 0, 0.05);
 `;
 
-export const NaverButton = styled.div`
+export const LoginBtn = styled.img`
   cursor: pointer;
-  width: 180px;
-  height: 64px;
-  flex-grow: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  padding: 22px 16px;
-  border-radius: 50px;
-  background-color: #19ce60;
-  border: none;
-  outline: none;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
+  width: 25px;
+  height: 25px;
+  background: ${(props) => props.color};
 `;
 
 export const StyledInfoParagraph = styled.p`
@@ -212,13 +197,19 @@ export const SubmitButton = styled.button`
   width: 325px;
   height: 54px;
   font-size: 16px;
-  margin-top: 50px;
+  margin-top: 30px;
   @media screen and (max-width: 1023px) {
     width: 220px;
     height: 54px;
     font-size: 16px;
     line-height: 1.6;
     letter-spacing: -0.5px;
-    margin-top: 78px;
+    margin-top: 48px;
   }
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
 `;

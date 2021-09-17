@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
-import useOwner from '@hooks/useOwner';
+// import useSWR from 'swr';
+// import Cookies from 'universal-cookie';
+// import client from '@lib/api/client';
+import useGetAlarm from '@hooks/useGetAlarm';
 import FriendModalContainer from '@containers/modal/FriendModalContainer';
-import FollowerModalContainer from '@containers/modal/FollowerModalContainer';
+import AlarmModalContainer from '@containers/modal/AlarmModalContainer';
 import SocialLoginContainer from '@containers/auth/SocialLoginContainer';
 import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
 import logo from '@assets/img/nav/logo.svg';
 import friend from '@assets/img/nav/friend.svg';
-// import activatedNotice from '@assets/img/nav/activatedNotice.svg';
+import activatedNotice from '@assets/img/nav/activatedNotice.svg';
 import inactivatedNotice from '@assets/img/nav/inactivatedNotice.svg';
 import avatar from '@assets/img/nav/avatar.svg';
 import arrowBtn from '@assets/img/my-profile/arrowBtn.svg';
 import avatarM from '@assets/img/my-profile/avatarM.svg';
 import closeBtnWhite from '@assets/img/my-profile/closeBtnWhite.svg';
 import settingBtn from '@assets/img/my-profile/settingBtn.svg';
+
 const Wrapper = styled.div`
   background-color: #121212;
   max-width: 576px;
@@ -38,7 +42,6 @@ const Wrapper = styled.div`
 const InnerWrapper = styled.div`
   max-width: 500px;
   width: 35vw;
-  /* background-color: red; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -133,10 +136,11 @@ const ProfileWrapper = styled.div`
 `;
 
 const ProfileImg = styled.img`
-  max-width: ${(props) => (props.avatar ? '77px' : '24px')};
-  max-height: ${(props) => (props.avatar ? '77px' : '24px')};
-  width: ${(props) => (props.avatar ? '5.3vw' : '1.6vw')};
-  height: ${(props) => (props.avatar ? '7.6vh' : '2.3vh')};
+  max-width: ${(props) => (props.avatar ? '77px' : '29px')};
+  max-height: ${(props) => (props.avatar ? '77px' : '29px')};
+  width: ${(props) => (props.avatar ? '5.3vw' : '29px')};
+  height: ${(props) => (props.avatar ? '7.5vh' : '29px')};
+  border-radius: 50%;
   @media screen and (max-width: 1023px) {
     width: ${(props) => (props.avatar ? '48px' : '18px')};
     height: ${(props) => (props.avatar ? '48px' : '18px')};
@@ -203,7 +207,7 @@ const StyledButton = styled.button`
     border-radius: 30px;
     line-height: 1.6;
     letter-spacing: -0.5px;
-    font-size: 1.2rem;
+    font-size: 11px;
     padding: 8px 8px 8px 16px;
     margin-left: 8.4rem;
     margin-top: 16px;
@@ -221,30 +225,25 @@ const StyledLink = styled(Link)`
 `;
 
 const Header = ({ history, state, apiCall }) => {
+  const { data: alarmData } = useGetAlarm();
   const [showProfile, setShowProfile] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
   const {
-    tokenExisted,
     showLoginModal,
     showFriendModal,
     showAlarmModal,
-    showFollowerModal,
     user,
     memberData: { nickname, statusMessage, imgUrl },
   } = state;
   const { onClickModalStatus, onClickOpenProfile } = apiCall;
-  const urlNickname = history.location.pathname.split('/')[1];
-  const userInfo = { nickname, urlNickname };
-  const isOwned = useOwner(userInfo);
 
   const openFriendModal = () => {
     document.body.style = `overflow: hidden`;
     onClickModalStatus({ key: 'showFriendModal', value: true });
   };
 
-  const openFollowerModal = () => {
+  const openAlarmModal = () => {
     document.body.style = 'overflow: hidden';
-    onClickModalStatus({ key: 'showFollowerModal', value: true });
+    onClickModalStatus({ key: 'showAlarmModal', value: true });
   };
 
   const openProfileModal = () => {
@@ -261,12 +260,12 @@ const Header = ({ history, state, apiCall }) => {
 
   const oepnLoginModal = () => {
     document.body.style = `overflow: hidden`;
-    setShowLogin(true);
+    onClickModalStatus({ key: 'showLoginModal', value: true });
   };
 
   const closeLoginModal = () => {
     document.body.style = `overflow: visible`;
-    setShowLogin(false);
+    onClickModalStatus({ key: 'showLoginModal', value: false });
   };
 
   return (
@@ -281,8 +280,16 @@ const Header = ({ history, state, apiCall }) => {
               <ImgWrapper onClick={openFriendModal}>
                 <img src={friend} alt="친구창" />
               </ImgWrapper>
-              <ImgWrapper onClick={openFollowerModal}>
-                <img src={inactivatedNotice} alt="알림창" />
+              <ImgWrapper onClick={openAlarmModal}>
+                {alarmData ? (
+                  Object.keys(alarmData).length === 3 ? (
+                    <img src={inactivatedNotice} alt="알림창" />
+                  ) : (
+                    <img src={activatedNotice} alt="알림창" />
+                  )
+                ) : (
+                  <img src={inactivatedNotice} alt="알림창" />
+                )}
               </ImgWrapper>
               <ImgWrapper onClick={openProfileModal}>
                 <img src={imgUrl ? imgUrl : avatar} style={{ borderRadius: '50%' }} alt="프로필 사진" />
@@ -298,8 +305,8 @@ const Header = ({ history, state, apiCall }) => {
         </InnerWrapper>
       </Wrapper>
       {showFriendModal && <FriendModalContainer />}
-      {showFollowerModal && <FollowerModalContainer />}
-      {showLogin && (
+      {showAlarmModal && <AlarmModalContainer />}
+      {showLoginModal && (
         <ModalWrapper>
           <ModalOverlay onClick={() => closeLoginModal()} />
           <ModalContents>
@@ -328,12 +335,7 @@ const Header = ({ history, state, apiCall }) => {
             {user ? (
               <>
                 <ProfileWrapper>
-                  <ProfileImg
-                    src={imgUrl ? imgUrl : avatarM}
-                    avatar="avatar"
-                    style={{ borderRadius: '50%' }}
-                    alt="프로필 사진"
-                  />
+                  <ProfileImg src={imgUrl ? imgUrl : avatarM} avatar="avatar" alt="프로필 사진" />
                   <ProfileInfoWrapper>
                     <div>
                       <span>{nickname || sessionStorage.getItem('nickname')}</span>
