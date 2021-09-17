@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useGetAlarm from '@hooks/useGetAlarm';
-import { acceptFollow, declineFollow } from '@modules/friend';
+import { acceptFollow, declineFollow, initializeFriendStatus } from '@modules/friend';
 import { updateModalStatus } from '@modules/modal';
 import AlarmModal from '@components/modal/AlarmModal';
 import AlarmErrorModal from '@components/modal/AlarmErrorModal';
@@ -18,6 +18,7 @@ const AlarmModalContainer = () => {
   useEffect(() => {
     if (acceptFollowStatus === 200 || declineFollowStatus === 200) {
       dispatch(updateModalStatus({ key: 'showAlarmModal', value: false }));
+      dispatch(initializeFriendStatus());
     }
   }, [acceptFollowStatus, declineFollowStatus]);
 
@@ -26,7 +27,6 @@ const AlarmModalContainer = () => {
   const onClickModalStatus = useCallback((payload) => dispatch(updateModalStatus(payload)), [dispatch]);
 
   const apiCall = { onClickAcceptFollow, onClickDeclineFollow, onClickModalStatus };
-
   return (
     <>
       {getAlarmDataLoading ? (

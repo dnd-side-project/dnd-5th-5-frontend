@@ -40,10 +40,6 @@ const AlarmModal = ({ state, apiCall }) => {
                       </>
                     )}
                   </>
-                  // <AlarmContents>
-                  //   {data.category === 'FRIEND_ALARM' && <FriendInfo data={data} apiCall={apiCall} />}
-                  //   {data.category === 'NOTICE_ALARM' && <AlarmInfo data={data} />}
-                  // </AlarmContents>
                 );
               })}
             </div>

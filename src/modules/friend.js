@@ -20,6 +20,7 @@ const [DECLINE_FOLLOW, DECLINE_FOLLOW_SUCCESS, DECLINE_FOLLOW_FAILURE] =
   createRequestActionTypes('friend/DECLINE_FOLLOW');
 const [CANCEL_FOLLOW, CANCEL_FOLLOW_SUCCESS, CANCEL_FOLLOW_FAILURE] = createRequestActionTypes('friend/CANCEL_FOLLOW');
 const [DELETE_FRIEND, DELETE_FRIEND_SUCCESS, DELETE_FRIEND_FAILURE] = createRequestActionTypes('friend/DELETE_FRIEND');
+const INITIALIZE_FRIEND_STATUS = 'friend/INITIALIZE_FRIEND_STATUS';
 
 /**
  * 액션 생성 함수
@@ -33,6 +34,7 @@ export const acceptFollow = createAction(ACCEPT_FOLLOW, (nickname) => nickname);
 export const declineFollow = createAction(DECLINE_FOLLOW, (nickname) => nickname);
 export const cancelFollow = createAction(CANCEL_FOLLOW, (nickname) => nickname);
 export const deleteFriend = createAction(DELETE_FRIEND, (nickname) => nickname);
+export const initializeFriendStatus = createAction(INITIALIZE_FRIEND_STATUS);
 
 /**
  * 사가 생성
@@ -174,6 +176,11 @@ const friend = handleActions(
     [DELETE_FRIEND_FAILURE]: (state, { payload: error }) => ({
       ...state,
       deleteFriendError: error,
+    }),
+    [INITIALIZE_FRIEND_STATUS]: (state) => ({
+      ...state,
+      acceptFollowStatus: 0,
+      declineFollowStatus: 0,
     }),
   },
   initialStae,
